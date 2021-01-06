@@ -7,13 +7,16 @@ Authors@R:
            role = c("aut", "cre"),
            email = "rylima111@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0002-5352-7215"))
-Description: This package was created to assist in the analysis of oblique imagery captured between 1990 - present at
-40+ sandbar sites in the Grand Canyon. This package allows the user to examine flow patterns at different sites, and
-to estimate water surface elevation at any given time, as well as much more
+Description: A collection of tools for analyzing and visualing flow patterns at sandbar sites in Grand Canyon.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Depends: 
-    R (>= 2.10)
+Depends:
+    R (>= 3.0.2)
+Imports: 
+    tidyverse (>= 1.3.0),
+    lubridate (>= 1.7.9)
+Suggests: 
+    testthat

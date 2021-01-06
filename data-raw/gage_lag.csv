@@ -1,0 +1,7 @@
+gage_number,gage_name,gage_mile_char,gage_mile_num,lag_slope,lag_intercept
+09380000,LeesFerry,0000,0,0.203,0.112
+09383050,ThirtyMile,0030,30,0.193,-5.69
+09383100,LCR,0061,61,0.184,-11.2
+09402500,PhantomRanch,0087,87,0.183,-15.9
+09404120,NationalCanyon,0166,166,0.183,-30.2
+09404200,DiamondCreek,0225,225,NA,NA
