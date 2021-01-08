@@ -20,10 +20,10 @@ find_us_gage <- function(rm, print = F){
       }else{}
       out <- list("gage_name"= near_gage_up_name, "index" = ng_i, "distance_to_gage" = -diff[ng_i])
     }else{
-      out <- list("gage_name"= NULL, "index" = NULL, "distance_to_gage" = NULL)
+      out <- list("gage_name"= NA, "index" = NA, "distance_to_gage" = NA)
     print("Rivermile (rm) out of range, must be between 0 and 225")}
   }else{
-    out <- list("gage_name"= NULL, "index" = NULL, "distance_to_gage" = NULL)
+    out <- list("gage_name"= NA, "index" = NA, "distance_to_gage" = NA)
     print("Rivermile (rm) needs to be type numeric")}
   return(out)
 }
@@ -51,10 +51,10 @@ find_ds_gage <- function(rm, print = F){
       }else{}
       out <- list("gage_name"= near_gage_dn_name, "index"= ng_i, "distance_to_gage" = -diff[ng_i])
     }else{
-      out <- list("gage_name"= NULL, "index"= NULL, "distance_to_gage" = NULL)
+      out <- list("gage_name"= NA, "index"= NA, "distance_to_gage" = NA)
       print("Rivermile (rm) out of range, must be between 0 and 166")}
   }else{
-    out <- list("gage_name"= NULL, "index"= NULL, "distance_to_gage" = NULL)
+    out <- list("gage_name"= NA, "index"= NA, "distance_to_gage" = NA)
     print("Rivermile (rm) needs to be type numeric")}
   return(out)
 }
@@ -80,11 +80,11 @@ find_nr_gage <- function(rm, print = F){
       }else{}
       out <- list("gage_name" = near_gage_name, "index" = ng_i, "distance_to_gage" = -diff[ng_i])
     }else{
-      out <- list("gage_name"= NULL, "index" = NULL, "distance_to_gage" = NULL)
+      out <- list("gage_name"= NA, "index" = NA, "distance_to_gage" = NA)
       print("Rivermile (rm) out of Range, must be between 0 and 225")
     }
   }else{
-    out <- list("gage_name"= NULL, "index" = NULL, "distance_to_gage" = NULL)
+    out <- list("gage_name"= NA, "index" = NA, "distance_to_gage" = NA)
     print("Rivermile (rm) needs to be type Numeric")}
   return(out)
 }

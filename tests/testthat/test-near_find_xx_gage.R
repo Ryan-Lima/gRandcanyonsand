@@ -11,9 +11,9 @@ test_that("find_ds_gage works", {
   expect_equal(out1$gage_name,"LCR")
   rm(out1)
   out2 <- find_ds_gage(170)
-  expect_equal(out2$index, NULL)
-  expect_equal(out2$distance_to_gage,NULL)
-  expect_equal(out2$gage_name,NULL)
+  expect_equal(out2$index, NA)
+  expect_equal(out2$distance_to_gage,NA)
+  expect_equal(out2$gage_name,NA)
 })
 
 test_that("find_us_gage works", {
@@ -33,9 +33,9 @@ test_that("find_us_gage works", {
   expect_equal(out2$gage_name,"NationalCanyon")
   rm(out2)
   out3 <- find_us_gage(226)
-  expect_equal(out3$index, NULL)
-  expect_equal(out3$distance_to_gage,NULL)
-  expect_equal(out3$gage_name,NULL)
+  expect_equal(out3$index, NA)
+  expect_equal(out3$distance_to_gage,NA)
+  expect_equal(out3$gage_name,NA)
   rm(out3)
 })
 
@@ -51,9 +51,9 @@ test_that("find_nr_gage works",{
   expect_equal(out1$gage_name,"ThirtyMile" )
   rm(out1)
   out2 <- find_nr_gage(226)
-  expect_equal(out2$index,NULL)
-  expect_equal(out2$distance_to_gage,NULL)
-  expect_equal(out2$gage_name,NULL)
+  expect_equal(out2$index,NA)
+  expect_equal(out2$distance_to_gage,NA)
+  expect_equal(out2$gage_name,NA)
   rm(out2)
 })
 

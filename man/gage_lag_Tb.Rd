@@ -5,7 +5,7 @@
 \alias{gage_lag_Tb}
 \title{'gage_lag_Tb' tibble of gages and lag coefficients}
 \format{
-A tibble 5 x 8
+A tibble 5 x 8:
 \itemize{
 \item \code{gage_number} <chr> USGS gage identification number
 \item \code{gage_name} <chr> colloquial names for GC gages

@@ -1,5 +1,9 @@
 # load and process gage data
 
+library(usethis)
+library(lubridate)
+library(tidyverse)
+
 raw_gage_lag <- read.csv("data-raw/gage_lag.csv", colClasses = c("gage_number" = "character",
                                                                  "gage_name" = "character",
                                                                  "gage_mile_char" = "character",
@@ -94,7 +98,6 @@ gage_lag_Tb <- gage_lag_Tb %>%
   add_column(begin_date)%>%
   add_column(end_date)
 
-gage_lag_Tb
 
 usethis::use_data(gage_lag_Tb, overwrite = T)
 usethis::use_data(gage_data_list, overwrite = T)

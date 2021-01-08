@@ -5,7 +5,7 @@
 \alias{gage_data_list}
 \title{'gage_data_list' list of data frames of GC gages}
 \format{
-A list containing 5 data frames
+A list containing 5 data frames:
 \itemize{
 \item \code{gage_data_list} - "LeesFerry" df of datetime, discharge for  0-mile
 \item \code{gage_data_list} - "ThirtyMile" df of datetime, discharge for  30-mile

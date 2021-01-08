@@ -5,7 +5,7 @@
 \alias{sandbarSitesTb}
 \title{'sandbarSitesTb' Tibble of sandbar monitoring sites}
 \format{
-A tibble 39 X 6
+A tibble 39 X 6:
 \itemize{
 \item \code{site_code_5} <chr> 5 character site code ex. "0307R"
 \item \code{site_name_7} <chr> 7 character name of the camera without (a-f) deployment modifier ex. "RC0307R"
