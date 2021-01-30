@@ -1,7 +1,8 @@
 # 03- plot_hydrograph
 library(lubridate)
 library(gridExtra)
-library(hydroTSM)
+library(tidyverse)
+
 
 
 
@@ -65,7 +66,7 @@ plot_hydrograph <- function(rm, start_dt_str,
     labHi = paste0(HiQ," [ft3/s]")
     title_txt <- paste0("Hydrograph for Colorado River at RM:",rm)
     subtitle_txt <- paste0("For dates: ",gage_time_s, " -to:", gage_time_e)
-    h <- ggplot(h_data, aes(x = DT_h, y = cfs))+
+    h <- ggplot2::ggplot(h_data, aes(x = DT_h, y = cfs))+
       geom_line()+
       theme_bw()+
       ylab("Discharge [ft3/s]")+
@@ -88,7 +89,7 @@ plot_hydrograph <- function(rm, start_dt_str,
     labHi = paste0(HiQ," [m3/s]")
     title_txt <- paste0("Hydrograph for Colorado River at RM:",rm)
     subtitle_txt <- paste0("For dates: ",gage_time_s, " -to:", gage_time_e)
-    h <- ggplot(h_data, aes(x = DT_h, y = cms))+
+    h <- ggplot2::ggplot(h_data, aes(x = DT_h, y = cms))+
       geom_line()+
       theme_bw()+
       ylab("Discharge [m3/s]")+
@@ -185,11 +186,11 @@ summarize_Q <- function(rm, start_dt, end_dt, unit_cfs = T, plot = F){
   if (unit_cfs == T){
     print('summary statsitics in CFS')
     out <- cfs
-    fdc(xcfs*cov_const)
+    #fdc(xcfs*cov_const)
     }else{
     print('CFS = F, summary statsistics in Q[m3/s]')
     out <- cms
-    fdc_cms <- fdc(xcfs*cov_const, main = 'Flow Duration Curve at ')
+    #fdc_cms <- fdc(xcfs*cov_const, main = 'Flow Duration Curve at ')
     }
   print(out[1:5])
   return(out)
