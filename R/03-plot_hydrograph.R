@@ -196,7 +196,9 @@ summarize_Q <- function(rm, start_dt, end_dt, unit_cfs = T, plot = F){
   return(out)
 }
 
-#out <- summarize_Q(rm, start_dt = '20200525_1200', end_dt = '20200603_1200', plot = T)
-#out$hydrograph
+out <- summarize_Q(30.7, start_dt = '20200525_1200', end_dt = '20200603_1200', plot = T)
+out$hydrograph
+
+
 
 
