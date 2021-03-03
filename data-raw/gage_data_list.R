@@ -70,35 +70,5 @@ gage_data_list <- list("LeesFerry" = gage_data_0000_mile,
                        "PhantomRanch" = gage_data_0087_mile,
                        "NationalCanyon" = gage_data_0166_mile)
 
-## how to call single gage data
-#LCR = gage_data_list[['LCR']]
 
-
-begin_date_0000 <- gage_data_0000_mile$datetime[1] # first date in record
-begin_date_0030 <- gage_data_0030_mile$datetime[1]
-begin_date_0061 <- gage_data_0061_mile$datetime[1]
-begin_date_0166 <- gage_data_0166_mile$datetime[1]
-
-begin_date <- vector(length = nrow(gage_lag_Tb))
-class(begin_date)<-"Date"
-end_date <- vector(length = nrow(gage_lag_Tb))
-class(end_date)<-"Date"
-
-for (i in 1:length(gage_lag_Tb$gage_name)){
-  name <- gage_lag_Tb$gage_name[i]
-  begin <- gage_data_list[[name]]$datetime[1]
-  n <- length(gage_data_list[[name]]$datetime)
-  end <- gage_data_list[[name]]$datetime[n]
-  begin_date[i]<-begin
-  end_date[i]<- end
-}
-
-
-gage_lag_Tb <- gage_lag_Tb %>%
-  add_column(begin_date)%>%
-  add_column(end_date)
-
-
-usethis::use_data(gage_lag_Tb, overwrite = T)
 usethis::use_data(gage_data_list, overwrite = T)
-

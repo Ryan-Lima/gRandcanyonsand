@@ -1,4 +1,4 @@
-# 04-plot_elevation_graph
+# 05-plot_elevation_graph
 library(lubridate)
 library(gridExtra)
 library(tidyverse)
@@ -7,7 +7,7 @@ library(tidyverse)
 #' plot_elevation_graph
 #'
 #' This function plots a hydrograph-type figure but instead of showing discharge
-#' over time, it shows water-surface elevaiton based on estimated Q and the
+#' over time, it shows water-surface elevation based on estimated Q and the
 #' observed stage discharge relationship for any given site.
 #'
 #' @param site  5 character site code ex.'0307R'
@@ -18,7 +18,7 @@ library(tidyverse)
 #' @param LowE the discharge in CFS for the low elevation line shown on plot
 #' @param HiE the discharge in CFS for the high elevation line shown on the plot
 #'
-#' @return plot, showing graph of water surface elevation
+#' @return A plot, showing graph of water surface elevation
 #' @export
 #'
 #' @examples
@@ -79,11 +79,12 @@ plot_elevation_graph <- function(site,
   return(E_graph)
 }
 
-# example
-# plot_elevation_graph('0220R','20150528_1200', '20150603_1200' )
 
 
-#' Title
+#' Summarize E (water surface elevation)
+#'
+#' provides summary statistics of the water surface elevation during
+#' the chosen time period at the selected site
 #'
 #' @param site  5 character site code ex.'0307R'
 #' @param start_dt string of start date_time 'YYYYMMDD_hhmm' ex. '20100101_2200'
@@ -149,5 +150,4 @@ Summarize_E <- function(site, start_dt, end_dt, plot = F) {
   return(out)
 }
 
-out <- Summarize_E("0220R", "20150528_1200", "20150605_1200", plot = T)
-out$Elevation_graph
+

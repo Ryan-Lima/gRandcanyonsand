@@ -30,22 +30,38 @@ knitr::opts_chunk$set(
 
 the development version from [GitHub](https://github.com/) with:
 
-``` r
-# install.packages("devtools")
+```{r}
+#install.packages('devtools)
 devtools::install_github("Ryan-Lima/gRandcanyonsand")
+
 ```
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+Find dischage at any time and any rivermile in Grand Canyon 2010 - 2020
 
-```{r example}
-#......
+```{r}
+rivermile = 30.7
+date_of_interest = '20140601_1200' # YYYYMMDD_hhmm 
+find_Q(rm = rivermile,datetime =date_of_interest,print = F)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+At specific sites, you can find the estimated water surface elevation given a discharge or you can get an estimated discharge based on a given water surface elevation
 
-```{r cars}
-#..........
+```{r}
+#site_list_vec # a list of the available sandbar monitoring sites
+site_name = site_list_vec[28]
+print(site_name)
+
+estimated_E <- find_E_from_Q(site_name,Qcfs = 8000)
+print(estimated_E)
+
+estimated_Q <- find_Q_from_E(site_name,estimated_E$WSE )
+print(estimated_Q)
+```
+The estimated elevations and discharges are based on measured stage-discharge relationships for each site, you can see these relationships with the function: plot_site_sd()
+
+```{r}
+plot_site_sd(site_list_vec[4])
 ```
 
 You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.

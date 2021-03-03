@@ -19,17 +19,16 @@ library(ggplot2)
 #'x3 <- as.numeric(dt)
 #'y3 <- m * x3 + b
 #'
-#' @param dt lubridate - datetime object
-#' @param time_before - numeric datetime, 15-min discharge measurment before
-#' @param Q_before - discharge (cfs) associated with time_before in gage_data
-#' @param time_after  - numeric datetime, 15-min discharge measurment after
-#' @param Q_after  - discharge (cfs) associated with time_after in gage_data
+#' @param dt lubridate  datetime object
+#' @param time_before  numeric datetime, 15-min discharge measurment before
+#' @param Q_before  discharge (cfs) associated with time_before in gage_data
+#' @param time_after   numeric datetime, 15-min discharge measurment after
+#' @param Q_after   discharge (cfs) associated with time_after in gage_data
 #'
 #' @return y3 -- numeric value, interpolated discharge in cfs
 #'
 #' @export
 #'
-#' @examples
 interp_Q <- function(dt, time_before, Q_before, time_after, Q_after){
   y1 <- Q_before
   y2 <- Q_after
@@ -47,8 +46,8 @@ interp_Q <- function(dt, time_before, Q_before, time_after, Q_after){
 #'
 #' find discharge in cfs given the rm (rivermile) and datetime (a string 'YYYYMMDD_hhmm')
 #'
-#' @param rm <numeric> rivermile
-#' @param datetime <chr> string in format YYYYMMMDD__hhmm (24-hr) timez = 'MST'
+#' @param rm (numeric) rivermile
+#' @param datetime (chr) string in format YYYYMMMDD__hhmm (24-hr) timez = 'MST'
 #' @param print print = FALSE by default, if print = TRUE useful print statement produced
 #'
 #' @return  out <- list("Qcfs" = Qcfs, "Qcms" = Qcms)
@@ -99,16 +98,16 @@ find_Q <-function(rm, datetime, print = F){
 #'
 #' find E (water surface elevation) with input of Qcfs, output is list, of Q-cfs, Q-cms, WSE-or-E
 #'
-#' @param site <chr> 5-letter site name, including 4-character RM and 1-character side of river,
+#' @param site character 5-letter site name, including 4-character RM and 1-character side of river,
 #' ex. 'site = 0307R'
-#' @param Qcfs <numeric> discharge in cubic feet per second
+#' @param Qcfs numeric discharge in cubic feet per second
 #' ex. Qcfs = 8000
 #' @param print print = FALSE by default, if print = TRUE useful print statement produced
 #'
 #' @return out <- list('WSE' = WSE, 'Qcfs' = Qcfs, 'Qcms' = Qcms)
-#' `WSE` <numeric> meters
-#' `Qcfs` <numeric> cubic feet per second
-#' `Qcms` <numeric> cubic meters per second
+#' `WSE` numeric meters
+#' `Qcfs` numeric cubic feet per second
+#' `Qcms` numeric cubic meters per second
 #'
 #' @export
 #'
@@ -149,11 +148,11 @@ find_E_from_Q <- function(site, Qcfs, print = F){
 #'find E with input of Q-cfs, E =(water surface elevation),  output is 'E' only
 #'This function simply outputs elevation, not in a list
 #'
-#' @param site <chr> 5-letter site name, including 4-character RM and 1-character side of river,
+#' @param site chr 5-letter site name, including 4-character RM and 1-character side of river,
 #' ex. 'site = 0307R'
-#' @param Qcfs <numeric> discharge in cubic feet per second
+#' @param Qcfs numeric discharge in cubic feet per second
 #'
-#' @return E <numeric> elevation in meters
+#' @return E (numeric) elevation in meters
 #' @export
 #'
 #' @examples
@@ -171,9 +170,9 @@ f_E_Q <- function(site,Qcfs){
 #' Given a datetime object and site
 #' output estimated water surface elevation in meters and discharge in cfs and cms
 #'
-#' @param site <chr> 5-letter site name, including 4-character RM and 1-character side of river,
+#' @param site (chr) 5-letter site name, including 4-character RM and 1-character side of river,
 #' ex. 'site = 0307R'
-#' @param datetime <chr> string in format YYYYMMMDD__hhmm (24-hr) timez = 'MST'
+#' @param datetime (chr) string in format YYYYMMMDD__hhmm (24-hr) timez = 'MST'
 #' @param print print = FALSE by default, if print = TRUE useful print statement produced
 #'
 #' @return out <- list('Qcfs' = outQ$Qcfs , 'Qcms' = outQ$Qcms,'WSE' = WSE)
@@ -203,9 +202,9 @@ find_EQ_from_dt <- function(site, datetime, print = F){
 
 #' find discharge given elevation
 #'
-#' @param site <chr> 5-letter site name, including 4-character RM and 1-character side of river,
+#' @param site (chr) 5-letter site name, including 4-character RM and 1-character side of river,
 #' ex. 'site = 0307R'
-#' @param E <numeric> elevation in meters AZ central state plane
+#' @param E (numeric) elevation in meters AZ central state plane
 #' @param print print = FALSE by default, if print = TRUE useful print statement produced
 #'
 #' @return out <- list('WSE' = E, 'Qcfs' = Qcfs, 'Qcms' = Qcms)
@@ -242,13 +241,14 @@ find_Q_from_E <- function(site, E, print = F){
 
 #' plot stage-discharge observation and model for given site
 #'
-#' @param site <chr> 5-letter site name, including 4-character RM and 1-character side of river,
+#' @param site (chr) 5-letter site name, including 4-character RM and 1-character side of river,
 #' ex. 'site = 0307R'
 #'
 #' @return plot of stage discharge relationship at selected site
 #' @export
 #'
 #' @examples
+#' plot_site_sd('0307R')
 plot_site_sd <- function(site){
   if(site %in% site_list_vec){
     site_i <- which(site_list_vec == site)

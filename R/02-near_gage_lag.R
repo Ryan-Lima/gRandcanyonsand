@@ -1,6 +1,6 @@
 #' Find the nearest upstream gage
 #'
-#' @param rm <numeric> river mile, miles downstream from Lees Ferry
+#' @param rm --numeric-- river mile, miles downstream from Lees Ferry
 #' @param print print = FALSE by default, if print = TRUE, distance and closest gage statement printed
 #'
 #' @return out = list('gage_name'= "LeesFerry",'index'=1,'distance_to_gage'= -10)
@@ -31,13 +31,14 @@ find_us_gage <- function(rm, print = F){
 
 #' Find the nearest downstream gage
 #'
-#' @param rm <numeric> river mile, miles downstream from Lees Ferry
+#' @param rm --numeric-- river mile, miles downstream from Lees Ferry
 #' @param print print = FALSE by default, if print = TRUE, distance and closest gage statement printed
 #'
 #' @return out = list('gage_name'= "LeesFerry",'index'=1,'distance_to_gage'= -10)
 #' @export
 #'
 #' @examples
+#' out <- find_ds_gage(30.7)
 find_ds_gage <- function(rm, print = F){
   if (is.numeric(rm)){
     if (rm < 166 & rm >= 0){
@@ -61,13 +62,14 @@ find_ds_gage <- function(rm, print = F){
 
 #' Find the nearest gage
 #'
-#' @param rm <numeric> river mile, miles downstream from Lees Ferry
+#' @param rm --numeric-- river mile, miles downstream from Lees Ferry
 #' @param print print = FALSE by default, if print = TRUE, distance and closest gage statement printed
 #'
 #' @return out = list('gage_name'= "LeesFerry",'index'=1,'distance_to_gage'= -10)
 #' @export
 #'
 #' @examples
+#' out <- find_nr_gage(30.7)
 find_nr_gage <- function(rm, print = F){
   if (is.numeric(rm)){
     if (rm < 226 & rm >= 0){
@@ -93,13 +95,14 @@ find_nr_gage <- function(rm, print = F){
 
 #' Find lag time to the nearest gage
 #'
-#' @param rm <numeric> river mile, miles downstream from Lees Ferry
+#' @param rm --numeric-- river mile, miles downstream from Lees Ferry
 #' @param print print = FALSE by default, if print = TRUE, lag time and nearest gage printed out
 #'
-#' @return out = list('lagtime' = <lubridate duration object>, 'nearest_gage' = "LCR" , 'nearest_gage_index' = 3)
+#' @return out = list('lagtime' = --lubridate duration object--, 'nearest_gage' = "LCR" , 'nearest_gage_index' = 3)
 #' @export
 #'
 #' @examples
+#' out <- find_lag_time(220)
 find_lag_time <- function(rm, print = F){
   nr_gage <- find_nr_gage(rm)
   i <- nr_gage$index
@@ -117,6 +120,4 @@ find_lag_time <- function(rm, print = F){
   out <- list('lagtime' = lagtime_hours,'nearest_gage'= gage_name, 'nearest_gage_index'= i)
   return(out)
 }
-
-
 

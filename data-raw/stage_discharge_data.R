@@ -294,5 +294,5 @@ stage_discharge_data = list(RC0034Lsd,RC0081Lsd,RC0089Lsd,RC0166Lsd,RC0220Rsd,RC
                             RC1946Lsd,RC2023Rsd,RC2133Lsd,RC2201Rsd,RC2255Rsd)
 
 
-usethis::use_data(site_list_vec, overwrite = TRUE)
+
 usethis::use_data(stage_discharge_data, overwrite = TRUE)

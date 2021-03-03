@@ -4,12 +4,12 @@
 #'
 #'@format A tibble 39 X 6:
 #'
-#'- `site_code_5` <chr> 5 character site code ex. "0307R"
-#'- `site_name_7` <chr> 7 character name of the camera without (a-f) deployment modifier ex. "RC0307R"
-#'- `camera`<chr> 7-8 character name of the camera with (a-f) deployment modifier ex. "RC0307Rf"
-#'- `begin_date` <chr> YYYYMMDD when imagery collection began at that site/deployment
-#'- `end_date` <chr> YYYYMMDD when imagery collection ended at that site
-#'- `river_mile` <dbl> river mile downstream from Lees Ferry where the sandbar site is located
+#'- `site_code_5` (chr) 5 character site code ex. "0307R"
+#'- `site_name_7` (chr) 7 character name of the camera without (a-f) deployment modifier ex. "RC0307R"
+#'- `camera`(chr) 7-8 character name of the camera with (a-f) deployment modifier ex. "RC0307Rf"
+#'- `begin_date` (chr) YYYYMMDD when imagery collection began at that site/deployment
+#'- `end_date` (chr) YYYYMMDD when imagery collection ended at that site
+#'- `river_mile` (dbl) river mile downstream from Lees Ferry where the sandbar site is located
 #'
 "sandbarSitesTb"
 
@@ -19,14 +19,14 @@
 #'
 #'@format A tibble 5 x 8:
 #'
-#'-  `gage_number` <chr> USGS gage identification number
-#'-  `gage_name` <chr> colloquial names for GC gages
-#'-  `gage_mile_char` <chr> 4 digit river mile as character
-#'-  `gage_mile_num` <dbl> gage river mile
-#'-  `lag_slope` <dbl> slope for the line to predict lag from each gage
-#'-  `lag_intercept` <dbl> inrecept for the line to predict lag for each gage
-#'-  `begin_date` <date> beginning date for the gage data inside this package for the gage in question
-#'-  `end_date` <date> end date for the gage data inside this package for the gage in question
+#'-  `gage_number` (chr) USGS gage identification number
+#'-  `gage_name` (chr) colloquial names for GC gages
+#'-  `gage_mile_char` (chr) 4 digit river mile as character
+#'-  `gage_mile_num` (dbl) gage river mile
+#'-  `lag_slope` (dbl) slope for the line to predict lag from each gage
+#'-  `lag_intercept` (dbl) inrecept for the line to predict lag for each gage
+#'-  `begin_date` (date) beginning date for the gage data inside this package for the gage in question
+#'-  `end_date` (date) end date for the gage data inside this package for the gage in question
 #'
 "gage_lag_Tb"
 
@@ -73,16 +73,16 @@
 #'observed stage-discharge relationships at each site
 #'
 #'@format A tibble 39 x 9
-#'-`X` <int> index
-#'-`sitename` <chr> 5 character rivermile + side ex. 0034L = 3.4 mile on river left
-#'-`intecept` <dbl> intercept for stage-discharge equation
-#'-`term1` <dbl> first term in polynomial equation relating stage to discharge
-#'-`term2` <dbl> second term in polynomial equation relating stage to discharge
-#'-`r.squared` <dbl> the coefficient of determination for the stage-discharge measurments
+#'-`X` (int) index
+#'-`sitename` (chr) 5 character rivermile + side ex. 0034L = 3.4 mile on river left
+#'-`intecept` (dbl) intercept for stage-discharge equation
+#'-`term1` (dbl) first term in polynomial equation relating stage to discharge
+#'-`term2` (dbl) second term in polynomial equation relating stage to discharge
+#'-`r.squared` (dbl) the coefficient of determination for the stage-discharge measurments
 #'the polynomial equation relating stage and discharge
-#'-`adjr.squared` <dbl> coefficient of determination adjusted for the number of predictors in the model
-#'-`maxE` <dbl> maximum elevation of stage-discharge observations, maximum elevation equation is valid for
-#'-`minE` <dbl> minimum elevation of stage-discharge observations, minimum elevation equation is valid for
+#'-`adjr.squared` (dbl) coefficient of determination adjusted for the number of predictors in the model
+#'-`maxE` (dbl) maximum elevation of stage-discharge observations, maximum elevation equation is valid for
+#'-`minE` (dbl) minimum elevation of stage-discharge observations, minimum elevation equation is valid for
 #'
 "get_Q_from_WSE_Tb"
 
@@ -93,15 +93,15 @@
 #'
 #'@format A tibble 39 x 9
 #'
-#'-`X` <int> index
-#'-`sitename` <chr> 5 character rivermile + side ex. 0034L = 3.4 mile on river left
-#'-`intecept` <dbl> intercept for stage-discharge equation
-#'-`term1` <dbl> first term in polynomial equation relating stage to discharge
-#'-`term2` <dbl> second term in polynomial equation relating stage to discharge
-#'-`r.squared` <dbl> the coefficient of determination for the stage-discharge measurments
+#'-`X` (int) index
+#'-`sitename` (chr) 5 character rivermile + side ex. 0034L = 3.4 mile on river left
+#'-`intecept` (dbl) intercept for stage-discharge equation
+#'-`term1` (dbl) first term in polynomial equation relating stage to discharge
+#'-`term2` (dbl) second term in polynomial equation relating stage to discharge
+#'-`r.squared` (dbl) the coefficient of determination for the stage-discharge measurments
 #'the polynomial equation relating stage and discharge
-#'-`adjr.squared` <dbl> coefficient of determination adjusted for the number of predictors in the model
-#'-`maxQ` <int> maximum discharge of stage-discharge observations, maximum discharge equation is valid for
-#'-`minQ` <dbl> minimum discharge of stage-discharge observations, minimum discharge equation is valid for
+#'-`adjr.squared` (dbl) coefficient of determination adjusted for the number of predictors in the model
+#'-`maxQ` (int) maximum discharge of stage-discharge observations, maximum discharge equation is valid for
+#'-`minQ` (dbl) minimum discharge of stage-discharge observations, minimum discharge equation is valid for
 #'
 "get_WSE_from_Q_Tb"
