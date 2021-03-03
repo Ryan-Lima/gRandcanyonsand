@@ -99,6 +99,6 @@ gage_lag_Tb <- gage_lag_Tb %>%
   add_column(end_date)
 
 #gage_lag_Tb
-usethis::use_data(gage_lag_Tb, overwrite = T)
-usethis::use_data(gage_data_list, overwrite = T)
+usethis::use_data(gage_lag_Tb, overwrite = T, internal = T)
+usethis::use_data(gage_data_list, overwrite = T, internal = T)
 

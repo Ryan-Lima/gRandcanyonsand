@@ -30,7 +30,7 @@ Find dischage at any time and any rivermile in Grand Canyon 2010 - 2020
 ``` r
 # rivermile = 30.7
 # date_of_interest = '20140601_1200' # YYYYMMDD_hhmm 
-# find_Q(rm = rivermile,datetime =date_of_interest,print = F)
+# find_Q(rm = rivermile,datetime =date_of_interest,print = T)
 ```
 
 At specific sites, you can find the estimated water surface elevation

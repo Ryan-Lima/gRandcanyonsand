@@ -19,7 +19,3 @@ out <- list("Qcfs" = Qcfs, "Qcms" = Qcms)
 \description{
 find discharge in cfs given the rm (rivermile) and datetime (a string 'YYYYMMDD_hhmm')
 }
-\examples{
-out <- find_Q(30.7,"20191002_0030")
-out
-}

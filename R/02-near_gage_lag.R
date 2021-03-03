@@ -94,7 +94,7 @@ find_nr_gage <- function(rm, print = F){
 
 
 #' Find lag time to the nearest gage
-#'
+#' @importFrom lubridate duration
 #' @param rm --numeric-- river mile, miles downstream from Lees Ferry
 #' @param print print = FALSE by default, if print = TRUE, lag time and nearest gage printed out
 #'

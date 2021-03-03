@@ -1,7 +1,5 @@
 # 05-plot_elevation_graph
-library(lubridate)
-library(gridExtra)
-library(tidyverse)
+
 
 
 #' plot_elevation_graph
@@ -9,7 +7,10 @@ library(tidyverse)
 #' This function plots a hydrograph-type figure but instead of showing discharge
 #' over time, it shows water-surface elevation based on estimated Q and the
 #' observed stage discharge relationship for any given site.
-#'
+#' @importFrom dplyr filter mutate
+#' @importFrom lubridate ymd_hm interval %within% as.duration
+#' @importFrom magrittr "%>%"
+#' @importFrom ggplot2 ggplot aes  geom_point theme_bw geom_hline ggtitle xlab ylab annotate
 #' @param site  5 character site code ex.'0307R'
 #' @param start_dt string of start date_time 'YYYYMMDD_hhmm' ex. '20100101_2200'
 #' @param end_dt string of end date_time 'YYYYMMDD_hhmm' ex. '20100101_2200'
@@ -21,8 +22,6 @@ library(tidyverse)
 #' @return A plot, showing graph of water surface elevation
 #' @export
 #'
-#' @examples
-#' plot_elevation_graph("0220R", "20150528_1200", "20150603_1200")
 plot_elevation_graph <- function(site,
                                  start_dt,
                                  end_dt,
@@ -33,7 +32,7 @@ plot_elevation_graph <- function(site,
   start_DT <- ymd_hm(start_dt, tz = "MST")
   end_DT <- ymd_hm(end_dt, tz = "MST")
   rm <- as.numeric(substr(site, 1, 4)) / 10
-  Hrange <- interval(start_DT, end_DT)
+  Hrange <- lubridate::interval(start_DT, end_DT)
   quarter <- Hrange / xlabloc
   q <- as.duration(quarter)
   Xval <- start_DT + q
@@ -66,7 +65,7 @@ plot_elevation_graph <- function(site,
   labHi <- paste0(HiE, " [ft3/s] elevation")
   title_txt <- paste0("Water Surface Elevation for Colorado River at site:", rm)
   subtitle_txt <- paste0("For dates: ", gage_time_s, " -to: ", gage_time_e)
-  E <- ggplot(h_data, aes(x = DT_h, y = WSE)) +
+  E <- ggplot2::ggplot(h_data, aes(x = DT_h, y = WSE)) +
     geom_line() +
     theme_bw() +
     ylab("Water Surface Elevation [Meters]") +
@@ -85,7 +84,10 @@ plot_elevation_graph <- function(site,
 #'
 #' provides summary statistics of the water surface elevation during
 #' the chosen time period at the selected site
-#'
+#' @importFrom dplyr filter mutate
+#' @importFrom lubridate ymd_hm interval %within%
+#' @importFrom magrittr "%>%"
+#' @importFrom ggplot2 ggplot aes  geom_point theme_bw geom_hline ggtitle
 #' @param site  5 character site code ex.'0307R'
 #' @param start_dt string of start date_time 'YYYYMMDD_hhmm' ex. '20100101_2200'
 #' @param end_dt string of end date_time 'YYYYMMDD_hhmm' ex. '20100101_2200'
@@ -94,9 +96,7 @@ plot_elevation_graph <- function(site,
 #' @return list('meanWSE' = meanE,'maxWSE' = maxE,'minWSE' =  minE,'rangeWSE' = rangeE,'medianWSE' = medianE,'data' = h_data,'Elevation_graph' = plot)
 #' @export
 #'
-#' @examples
-#' out <- Summarize_E("0220R", "20150528_1200", "20150605_1200", plot = T)
-#' out$Elevation_graph
+
 Summarize_E <- function(site, start_dt, end_dt, plot = F) {
   rm <- as.numeric(substr(site, 1, 4)) / 10
   start_DT <- ymd_hm(start_dt, tz = "MST")

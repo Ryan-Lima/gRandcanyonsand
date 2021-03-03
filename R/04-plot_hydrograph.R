@@ -1,13 +1,14 @@
 # 03- plot_hydrograph
-library(lubridate)
-library(gridExtra)
-library(tidyverse)
 
 
 
 
 #' plot hydrograph
 #'
+#' @importFrom dplyr filter mutate
+#' @importFrom lubridate ymd_hm interval %within% as.duration
+#' @importFrom magrittr "%>%"
+#' @importFrom ggplot2 ggplot aes  geom_point geom_line xlab ylab theme_bw geom_hline ggtitle
 #' @param rm river mile downstream from lees ferry, numeric
 #' @param start_dt_str string of start date and time YYYMMDD_hhmm (24hr)
 #' @param end_dt_str string  of end date and time YYYMMDD_hhmm (24hr)
@@ -25,8 +26,6 @@ library(tidyverse)
 #' @return hydrograph (figure)
 #' @export
 #'
-#' @examples
-#' plot_hydrograph(22, '20100101_1200', '20100102_1200', unit_cfs = T)
 plot_hydrograph <- function(rm, start_dt_str,
                             end_dt_str,
                             ylabloc = 300,
@@ -111,7 +110,10 @@ plot_hydrograph <- function(rm, start_dt_str,
 
 
 #' summarize Q (discharge)
-#'
+#' @importFrom dplyr filter mutate
+#' @importFrom lubridate ymd_hm interval %within% as.duration
+#' @importFrom magrittr "%>%"
+#' @importFrom ggplot2 ggplot aes  geom_point geom_line xlab ylab theme_bw geom_hline ggtitle
 #' @param rm river mile, numeric
 #' @param start_dt string of start date and time YYYMMDD_hhmm (24hr)
 #' @param end_dt string of end date and time YYYMMDD_hhmm (24hr)
@@ -122,9 +124,6 @@ plot_hydrograph <- function(rm, start_dt_str,
 #' @return a list containing (meanQ, maxQ, minQ, rangeQ, medianQ, data, hydrograph)
 #' @export
 #'
-#' @examples
-#' out <- summarize_Q(30.7, start_dt = '20200525_1200', end_dt = '20200603_1200', plot = T)
-#' out$hydrograph
 summarize_Q <- function(rm, start_dt, end_dt, unit_cfs = T, plot = F){
   start_DT <- ymd_hm(start_dt, tz = 'MST')
   end_DT <- ymd_hm(end_dt, tz = 'MST')

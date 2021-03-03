@@ -37,6 +37,3 @@ This function plots a hydrograph-type figure but instead of showing discharge
 over time, it shows water-surface elevation based on estimated Q and the
 observed stage discharge relationship for any given site.
 }
-\examples{
-plot_elevation_graph("0220R", "20150528_1200", "20150603_1200")
-}

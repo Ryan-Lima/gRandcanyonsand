@@ -22,7 +22,3 @@ list('meanWSE' = meanE,'maxWSE' = maxE,'minWSE' =  minE,'rangeWSE' = rangeE,'med
 provides summary statistics of the water surface elevation during
 the chosen time period at the selected site
 }
-\examples{
-out <- Summarize_E("0220R", "20150528_1200", "20150605_1200", plot = T)
-out$Elevation_graph
-}

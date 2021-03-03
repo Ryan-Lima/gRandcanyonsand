@@ -43,6 +43,3 @@ hydrograph (figure)
 \description{
 plot hydrograph
 }
-\examples{
-plot_hydrograph(22, '20100101_1200', '20100102_1200', unit_cfs = T)
-}

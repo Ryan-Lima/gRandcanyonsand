@@ -1,5 +1,5 @@
 ##------ functions to find Q and E
-library(ggplot2)
+
 
 
 #figure out how to either include datasets as default variables or attach them so the functions work properly
@@ -45,7 +45,7 @@ interp_Q <- function(dt, time_before, Q_before, time_after, Q_after){
 #' find Q (discharge cfs)
 #'
 #' find discharge in cfs given the rm (rivermile) and datetime (a string 'YYYYMMDD_hhmm')
-#'
+#' @importFrom lubridate ymd_hm
 #' @param rm (numeric) rivermile
 #' @param datetime (chr) string in format YYYYMMMDD__hhmm (24-hr) timez = 'MST'
 #' @param print print = FALSE by default, if print = TRUE useful print statement produced
@@ -53,9 +53,6 @@ interp_Q <- function(dt, time_before, Q_before, time_after, Q_after){
 #' @return  out <- list("Qcfs" = Qcfs, "Qcms" = Qcms)
 #' @export
 #'
-#' @examples
-#' out <- find_Q(30.7,"20191002_0030")
-#' out
 find_Q <-function(rm, datetime, print = F){
   dt <- lubridate::ymd_hm(datetime, tz = 'MST')
   nr_gage_output <- find_nr_gage(rm)
@@ -92,12 +89,46 @@ find_Q <-function(rm, datetime, print = F){
 }
 
 
+f_q <-function(rm, datetime, print = F){
+  dt <- lubridate::ymd_hm(datetime, tz = 'MST')
+  nr_gage_output <- find_nr_gage(rm)
+  nr_gage_name <- nr_gage_output$gage_name
+  lag <- find_lag_time(rm)
+  lagtime <- lag$lagtime
+  gage_data_df <- gage_data_list[[nr_gage_name]]
+  gage_time <- dt - lagtime
+  diff_duration <- gage_data_df$datetime - gage_time
+  row_i <- which.min(base::abs(diff_duration))
+  min_val <- as.numeric(diff_duration[row_i])
+  #interpotlate
+  if (min_val < 0){ # in this case the closest gage reading is after gage time
+    row_b <- row_i
+    row_a <- row_i + 1
+  }else if (min_val > 0){
+    row_b <- row_i - 1
+    row_a <- row_i
+  }else{
+    row_b <- row_i - 1
+    row_a <- row_i + 1
+  }
+  entry_before <- gage_data_df[row_b,]
+  entry_after <-gage_data_df[row_a,]
+  Qcfs <- interp_Q(gage_time,entry_before$datetime_num, entry_before$cfs, entry_after$datetime_num, entry_after$cfs)
+  Qcms <- Qcfs*0.028316847
+  if (print == T){
+    print(paste0("Finding approx. Q at river mile:", rm, " at ", dt))
+    print(paste0("Nearest gage is {",nr_gage_name,"} lagtime to this gage is {",lagtime,"} approx. gage time is {",gage_time,"}"))
+    print(paste0("approx. Q is:", Qcfs,"-cfs & " ,Qcms, "-cms"))
+  }else{}
+  out <-Qcfs
+  return(out)
+}
+
 
 
 #' find elevation from Discharge (cfs)
 #'
 #' find E (water surface elevation) with input of Qcfs, output is list, of Q-cfs, Q-cms, WSE-or-E
-#'
 #' @param site character 5-letter site name, including 4-character RM and 1-character side of river,
 #' ex. 'site = 0307R'
 #' @param Qcfs numeric discharge in cubic feet per second
@@ -141,7 +172,6 @@ find_E_from_Q <- function(site, Qcfs, print = F){
 }
 
 
-
 #' simple - find elevation from discharge (cfs)
 #'
 #'
@@ -169,7 +199,7 @@ f_E_Q <- function(site,Qcfs){
 #'
 #' Given a datetime object and site
 #' output estimated water surface elevation in meters and discharge in cfs and cms
-#'
+#' @importFrom lubridate ymd_hm
 #' @param site (chr) 5-letter site name, including 4-character RM and 1-character side of river,
 #' ex. 'site = 0307R'
 #' @param datetime (chr) string in format YYYYMMMDD__hhmm (24-hr) timez = 'MST'
@@ -240,7 +270,8 @@ find_Q_from_E <- function(site, E, print = F){
 
 
 #' plot stage-discharge observation and model for given site
-#'
+#' @importFrom ggplot2 ggplot aes theme_light geom_line geom_smooth labs ggtitle annotate
+#' @importFrom stats lm median predict
 #' @param site (chr) 5-letter site name, including 4-character RM and 1-character side of river,
 #' ex. 'site = 0307R'
 #'

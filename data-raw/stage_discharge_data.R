@@ -295,4 +295,4 @@ stage_discharge_data = list(RC0034Lsd,RC0081Lsd,RC0089Lsd,RC0166Lsd,RC0220Rsd,RC
 
 
 
-usethis::use_data(stage_discharge_data, overwrite = TRUE)
+usethis::use_data(stage_discharge_data, overwrite = TRUE, internal = TRUE)

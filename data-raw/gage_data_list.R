@@ -71,4 +71,4 @@ gage_data_list <- list("LeesFerry" = gage_data_0000_mile,
                        "NationalCanyon" = gage_data_0166_mile)
 
 
-usethis::use_data(gage_data_list, overwrite = T)
+usethis::use_data(gage_data_list, overwrite = T, internal = T)

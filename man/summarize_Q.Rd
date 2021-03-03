@@ -24,7 +24,3 @@ a list containing (meanQ, maxQ, minQ, rangeQ, medianQ, data, hydrograph)
 \description{
 summarize Q (discharge)
 }
-\examples{
-out <- summarize_Q(30.7, start_dt = '20200525_1200', end_dt = '20200603_1200', plot = T)
-out$hydrograph
-}

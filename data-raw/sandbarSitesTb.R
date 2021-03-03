@@ -13,4 +13,4 @@ sandbarSitesTb <- sandbarSitesTb %>%
 sandbarSitesTb
 
 
-usethis::use_data(sandbarSitesTb, overwrite = TRUE)
+usethis::use_data(sandbarSitesTb, overwrite = TRUE, internal = T)
