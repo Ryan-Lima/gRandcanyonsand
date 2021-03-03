@@ -20,12 +20,13 @@
 the development version from [GitHub](https://github.com/) with:
 
 ``` r
+#library(devtools)
 #devtools::install_github("Ryan-Lima/gRandcanyonsand")
 ```
 
 ## Examples
 
-Find dischage at any time and any rivermile in Grand Canyon 2010 - 2020
+Find discharge at any time and any rivermile in Grand Canyon 2010 - 2020
 
 ``` r
 # rivermile = 30.7
