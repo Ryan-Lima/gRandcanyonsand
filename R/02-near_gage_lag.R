@@ -121,3 +121,39 @@ find_lag_time <- function(rm, print = F){
   return(out)
 }
 
+
+
+
+
+#' find datetime for Q at Lees Ferry
+#'
+#' @param rm -- numeric --
+#' @param datetime_str -- string of datetime in format "YYYYMMDD_hhmm" - 24hr
+#' @param print == F by default, if true, it prints a statement
+#'
+#' @return POSIXct, format: "YYYY-mm-dd hh:mm:ss"
+#' @export
+#'
+#' @examples
+find_dt_4Q_at_Lees <- function(rm, datetime_str, print = F){
+  # Estimated DT when image discharge was at Lees Ferry
+  gage_i = 1
+  image_dt = lubridate::ymd_hm(datetime_str, tz = 'MST')
+  gage_name <- gage_name<- gage_lag_Tb$gage_name[gage_i]
+  lag_slope <- gage_lag_Tb$lag_slope[gage_i]
+  lag_intercept <- gage_lag_Tb$lag_intercept[gage_i]
+  lag_hours <- lag_slope*rm + lag_intercept
+  lagtime_hours <- lubridate::duration(lag_hours, units = 'hours')
+  print(lagtime_hours)
+  correction <- 0.02878684 * rm
+  hr_corr <- lubridate::duration(correction, units = 'hours')
+  Lees_dt <- image_dt - (lagtime_hours - hr_corr)
+  if (print == T){
+    print(paste0(" The dischage at river mile: ",rm))
+    print(paste0(" at --", image_dt))
+    print(paste0(" was at Lees Ferry at about --",Lees_dt))
+    print(paste0(" A time difference of : ",lagtime_hours - hr_corr ))
+  }
+  return(Lees_dt)
+}
+

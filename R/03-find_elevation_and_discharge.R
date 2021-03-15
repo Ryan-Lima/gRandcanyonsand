@@ -292,18 +292,24 @@ plot_site_sd <- function(site){
     prd$lci <- err$fit - 2*1.96 * err$se.fit
     prd$fit <- err$fit
     prd$uci <- err$fit + 2*1.96 * err$se.fit
-    title <- paste0("Modeled and observed stage-discharge relationship for ", site)
+    title <- "Modeled Stage-Discharge Relationship"
+    subtit <- paste0('Site:', site)
     adj_rsq <- signif(summary(fit)$adj.r.squared, 3)
     pval <- signif(summary(fit)$coef[2,4], 3)
     lab <-paste("adj.R^2 == ", adj_rsq,"; pvalue ==", pval)
     out <- ggplot2::ggplot(prd, aes(x = Elevation, y = fit)) +
       theme_light()+
       geom_line() +
-      geom_smooth(aes(ymin = lci, ymax = uci), stat = 'identity') +
-      geom_point(data = site_sd_df, aes(x = Elevation, y = Q), color = "red")+
-      labs(y = expression( Discharge~ft^{"3"}/sec), x =expression( Elevation~(meters)))+
+      geom_smooth(aes(ymin = lci, ymax = uci,color = "Modeled\nRelation\n"), stat = 'identity') +
+      geom_point(data = site_sd_df, aes(x = Elevation, y = Q, color = 'Surveyed\nObservation'))+
+      labs(title = title ,
+           subtitle = subtit,
+           y = expression( Discharge~ft^{"3"}/sec),
+           x =expression( Elevation~(meters)),
+           color = "Legend")+
       ggtitle(title) +
-      annotate('text', x = (max(site_sd_df$Elevation)-1.5), y = 10000,label = lab, parse = T)
+      annotate('text', x = (max(site_sd_df$Elevation)-1.5), y = 10000,label = lab, parse = T)+
+      theme_classic()
   }else{
     print(paste0("Site {",site,"} not in site_list_vec, try again."))
     out <- NULL
