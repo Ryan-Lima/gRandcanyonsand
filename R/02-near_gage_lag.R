@@ -157,3 +157,37 @@ find_dt_4Q_at_Lees <- function(rm, datetime_str, print = F){
   return(Lees_dt)
 }
 
+
+#' Find the datetime when a flow will reach a given rivermile and datetime at Lees Ferry
+#'
+#' @param rm -- numeric --
+#' @param Lees_datetime_str -- string of datetime in format "YYYYMMDD_hhmm" - 24hr
+#' @param print == F by default, if true, it prints a statement
+#'
+#' @return
+#' @export
+#'
+#' @examples
+find_ds_traveltime_dt <- function(rm, Lees_datetime_str, print = F){
+  # estimated datetime when flow at Lees reaches given rm
+  gage_i = 1
+  Lees_dt = lubridate::ymd_hm(datetime_str, tz = 'MST')
+  gage_name <- gage_name<- gage_lag_Tb$gage_name[gage_i]
+  lag_slope <- gage_lag_Tb$lag_slope[gage_i]
+  lag_intercept <- gage_lag_Tb$lag_intercept[gage_i]
+  lag_hours <- lag_slope*rm + lag_intercept
+  lagtime_hours <- lubridate::duration(lag_hours, units = 'hours')
+  print(lagtime_hours)
+  correction <- 0.02878684 * rm
+  hr_corr <- lubridate::duration(correction, units = 'hours')
+  downstream_dt <- Lees_dt + (lagtime_hours - hr_corr)
+  if (print == T){
+    print(paste0(" The dischage at Lees Ferry at: ", Lees_dt ))
+    print(paste0("Should arrive at river mile-- ",rm))
+    print(paste0("at approximatly: ",downstream_dt))
+    print(paste0(" A time difference of : ",lagtime_hours - hr_corr ))
+  }
+  return(downstream_dt)
+}
+
+
