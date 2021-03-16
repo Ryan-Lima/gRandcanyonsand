@@ -31,7 +31,7 @@ plot_hydrograph <- function(rm, start_dt_str,
                             ylabloc = 300,
                             xlabloc = 1.5,
                             LoQ = 8000,
-                            HiQ = 20000,
+                            HiQ = 25000,
                             unit_cfs = T) {
   start_DT <- ymd_hm(start_dt_str, tz = 'MST')
   end_DT <- ymd_hm(end_dt_str, tz = 'MST')
@@ -62,37 +62,39 @@ plot_hydrograph <- function(rm, start_dt_str,
     mutate(DT_h = datetime - lag_dur) %>%
     mutate(DT_hnum = as.numeric(datetime_num - lag_dur))
   if (unit_cfs == T){
-    labLow = paste0(LoQ," [ft3/s]")
-    labHi = paste0(HiQ," [ft3/s]")
+    labLow = paste0(LoQ," [ft^3/s^-1]")
+    labHi = paste0(HiQ," [ft^3/s^-1]")
     title_txt <- paste0("Hydrograph for Colorado River at RM:",rm)
     subtitle_txt <- paste0("For dates: ",gage_time_s, " -to:", gage_time_e)
     h <- ggplot2::ggplot(h_data, aes(x = DT_h, y = cfs))+
       geom_line()+
       theme_bw()+
-      ylab("Discharge [ft3/s]")+
+      ylab("Discharge [ft^3/s^-1]")+
       xlab("Date")+
       ggtitle(title_txt, subtitle = subtitle_txt)
     hydrograph <- h + geom_hline(yintercept = LoQ, linetype = "dashed", color = "red", size = 1) +
       annotate("text", x = Xval, y = LoQ-ylabloc, label = labLow, color = 'red')+
       geom_hline(yintercept = HiQ, linetype = "dashed", color = "blue", size = 1)+
       annotate("text", x = Xval, y = HiQ+ylabloc, label = labHi, color = 'blue')
+
+
   }else if (unit_cfs == F){
-    if (LoQ == 8000 & HiQ == 20000) {
-      LoQ = LoQ * 0.028316846592
-      HiQ = HiQ * 0.028316846592
+    if (LoQ == 8000 & HiQ == 25000) {
+      LoQ = round(LoQ * 0.028316846592,0)
+      HiQ = round(HiQ * 0.028316846592,0)
     }else{
       print('You should have changed the LoQ and HiQ to cms...')
       LoQ = LoQ
       HiQ = HiQ
     }
-    labLow = paste0(LoQ," [m3/s]")
-    labHi = paste0(HiQ," [m3/s]")
+    labLow = paste0(LoQ," [m^3/s^-1]")
+    labHi = paste0(HiQ," [m^3/s^-1]")
     title_txt <- paste0("Hydrograph for Colorado River at RM:",rm)
     subtitle_txt <- paste0("For dates: ",gage_time_s, " -to:", gage_time_e)
     h <- ggplot2::ggplot(h_data, aes(x = DT_h, y = cms))+
       geom_line()+
       theme_bw()+
-      ylab("Discharge [m3/s]")+
+      ylab("Discharge [m^3/s^-1")+
       xlab("Date")+
       ggtitle(title_txt, subtitle = subtitle_txt)
     hydrograph <- h + geom_hline(yintercept = LoQ, linetype = "dashed", color = "red", size = 1) +
@@ -197,8 +199,6 @@ summarize_Q <- function(rm, start_dt, end_dt, unit_cfs = T, plot = F){
   print(out[1:5])
   return(out)
 }
-
-
 
 
 

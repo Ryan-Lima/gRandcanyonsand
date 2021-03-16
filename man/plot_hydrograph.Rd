@@ -11,7 +11,7 @@ plot_hydrograph(
   ylabloc = 300,
   xlabloc = 1.5,
   LoQ = 8000,
-  HiQ = 20000,
+  HiQ = 25000,
   unit_cfs = T
 )
 }
