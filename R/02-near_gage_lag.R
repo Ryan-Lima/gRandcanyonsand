@@ -144,10 +144,10 @@ find_dt_4Q_at_Lees <- function(rm, datetime_str, print = F){
   lag_intercept <- gage_lag_Tb$lag_intercept[gage_i]
   lag_hours <- lag_slope*rm + lag_intercept
   lagtime_hours <- lubridate::duration(lag_hours, units = 'hours')
-  print(lagtime_hours)
   correction <- 0.02878684 * rm
   hr_corr <- lubridate::duration(correction, units = 'hours')
   Lees_dt <- image_dt - (lagtime_hours - hr_corr)
+  Lees_dt<- lubridate::as_datetime(Lees_dt, tz = "MST")
   if (print == T){
     print(paste0(" The dischage at river mile: ",rm))
     print(paste0(" at --", image_dt))
@@ -171,7 +171,7 @@ find_dt_4Q_at_Lees <- function(rm, datetime_str, print = F){
 find_ds_traveltime_dt <- function(rm, Lees_datetime_str, print = F){
   # estimated datetime when flow at Lees reaches given rm
   gage_i = 1
-  Lees_dt = lubridate::ymd_hm(datetime_str, tz = 'MST')
+  Lees_dt = lubridate::ymd_hm(Lees_datetime_str, tz = 'MST')
   gage_name <- gage_name<- gage_lag_Tb$gage_name[gage_i]
   lag_slope <- gage_lag_Tb$lag_slope[gage_i]
   lag_intercept <- gage_lag_Tb$lag_intercept[gage_i]
@@ -189,5 +189,3 @@ find_ds_traveltime_dt <- function(rm, Lees_datetime_str, print = F){
   }
   return(downstream_dt)
 }
-
-
