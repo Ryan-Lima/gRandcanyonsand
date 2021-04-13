@@ -126,7 +126,7 @@ plot_hydrograph <- function(rm, start_dt_str,
 #' @return a list containing (meanQ, maxQ, minQ, rangeQ, medianQ, data, hydrograph)
 #' @export
 #'
-summarize_Q <- function(rm, start_dt, end_dt, unit_cfs = T, plot = F){
+Summarise_Q <- function(rm, start_dt, end_dt, unit_cfs = T, plot = F){
   start_DT <- ymd_hm(start_dt, tz = 'MST')
   end_DT <- ymd_hm(end_dt, tz = 'MST')
   Hrange <- interval(start_DT, end_DT)
@@ -201,5 +201,72 @@ summarize_Q <- function(rm, start_dt, end_dt, unit_cfs = T, plot = F){
 }
 
 
+
+
+#' Generate summary statistics for a data frame containing 24 hour discharge
+#'
+#' @param flow_data the data output of the Summarise_Q function... out$data
+#'
+#' @return a list containing the following:
+#' meanCFS = mean daily discharge in CFS
+#' maxCFS = max daily discharge in CFS
+#' minCFS =  min daily discharge in CFS
+#' rangeCFS = range in daily discharge in CFS
+#' medianCFS = median daily discharge in CFS
+#' sdCFS = standard devation of daily discharge in CFS
+#' DailyStdDelta = Daily Standardized delta rangeCFS/meanCFS from Bevelhimer et al., 2014
+#' DailyCoV' = Daily coefficient of variation sdCFS/meanCFS from Bevelhimer et al., 2014
+#' RiseFallCount' = Rise and Fall Count, hours of rise vs fall in discharge between -24 and 24
+#' R-Bflashiness' = Richards-Baker Flashiness index modified for daily flows, Baker et al., 2004
+#' @export
+#'
+Summarise_Daily_Q <- function(flow_data){
+  # provide dataframe with 24-hours of 15-minute flow data
+  # column names must be: cfs,  datetime, datetime_num
+  minq <- range(flow_data$cfs)[1]
+  maxq <- range(flow_data$cfs)[2]
+  rangeq <- maxq - minq
+  meanq <- mean(flow_data$cfs)
+  medianq <- median(flow_data$cfs)
+  sdq <- sd(flow_data$cfs)
+  # daily standardized delta = DSD
+  DSD <- rangeq/meanq
+  # daily coefficient of variation = DCOV
+  DCOV <- sdq / meanq
+  # Daily rise and fall counts = RFC
+  fd <- flow_data %>%
+    mutate(hour = hour(datetime))%>%
+    group_by(hour)%>%
+    summarise(mean_hrly = mean(cfs))
+  delta_Q = rep(NA, nrow(fd))
+  for (i in 1:nrow(fd)){
+    if (i == 1){
+      delta_Q[i] = 0
+    }else{
+      delta_Q_hr = fd$mean_hrly[i] - fd$mean_hrly[i-1]
+      if (delta_Q_hr > 1){
+        delta_Q[i] = 1
+      }else if (delta_Q_hr < 1){
+        delta_Q[i] = -1
+      }else{
+        delta_Q[i] = 0
+      }
+    }
+  }
+  RFC <- sum(delta_Q)
+  # daily Richards-Baker flashiness index  = DRBFI
+  DRBFI = sum(abs(diff(flow_data$cfs)))/sum(flow_data$cfs)
+  out <- list('meanCFS' = meanq,
+             'maxCFS' = maxq,
+             'minCFS' =  minq ,
+             'rangeCFS' = rangeq,
+             'medianCFS' = medianq,
+             'sdCFS' = sdq,
+             'DailyStdDelta' = DSD,
+             'DailyCoV' = DCOV,
+             'RiseFallCount' = RFC,
+             'R_Bflashiness' = DRBFI)
+  return(out)
+}
 
 

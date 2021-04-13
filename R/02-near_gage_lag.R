@@ -134,7 +134,6 @@ find_lag_time <- function(rm, print = F){
 #' @return POSIXct, format: "YYYY-mm-dd hh:mm:ss"
 #' @export
 #'
-#' @examples
 find_dt_4Q_at_Lees <- function(rm, datetime_str, print = F){
   # Estimated DT when image discharge was at Lees Ferry
   gage_i = 1
@@ -167,7 +166,6 @@ find_dt_4Q_at_Lees <- function(rm, datetime_str, print = F){
 #' @return
 #' @export
 #'
-#' @examples
 find_ds_traveltime_dt <- function(rm, Lees_datetime_str, print = F){
   # estimated datetime when flow at Lees reaches given rm
   gage_i = 1
@@ -189,3 +187,34 @@ find_ds_traveltime_dt <- function(rm, Lees_datetime_str, print = F){
   }
   return(downstream_dt)
 }
+
+
+#' convert cubic feet per second into cubic meters per second
+#'
+#' @param cfs cubic feet per second
+#'
+#' @return cms cubic meters per second
+#' @export
+#'
+#' @examples
+#' cfs_to_cms(8000)
+cfs_to_cms <- function(cfs){
+  cms <- (cfs * 0.028316846592)
+  return(cms)
+}
+
+
+#' convert cubic meters per second to cubic feet per second
+#'
+#' @param cms cubic meters per second
+#'
+#' @return cfs cubic feet per second
+#' @export
+#'
+#' @examples
+#' cms_to_cfs(227)
+cms_to_cfs <- function(cms){
+  cfs <- (cms/0.028316846592)
+  return(cfs)
+}
+

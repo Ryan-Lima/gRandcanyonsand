@@ -80,7 +80,7 @@ plot_elevation_graph <- function(site,
 
 
 
-#' Summarize E (water surface elevation)
+#' Summarise E (water surface elevation)
 #'
 #' provides summary statistics of the water surface elevation during
 #' the chosen time period at the selected site
@@ -96,8 +96,7 @@ plot_elevation_graph <- function(site,
 #' @return list('meanWSE' = meanE,'maxWSE' = maxE,'minWSE' =  minE,'rangeWSE' = rangeE,'medianWSE' = medianE,'data' = h_data,'Elevation_graph' = plot)
 #' @export
 #'
-
-Summarize_E <- function(site, start_dt, end_dt, plot = F) {
+Summarise_E <- function(site, start_dt, end_dt, plot = F) {
   rm <- as.numeric(substr(site, 1, 4)) / 10
   start_DT <- ymd_hm(start_dt, tz = "MST")
   end_DT <- ymd_hm(end_dt, tz = "MST")
