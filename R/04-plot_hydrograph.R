@@ -220,9 +220,10 @@ Summarise_Q <- function(rm, start_dt, end_dt, unit_cfs = T, plot = F){
 #' R-Bflashiness' = Richards-Baker Flashiness index modified for daily flows, Baker et al., 2004
 #' @export
 #'
-Summarise_Daily_Q <- function(flow_data){
+Summarise_Daily_Q <- function(flow_data, unit_cfs = T){
   # provide dataframe with 24-hours of 15-minute flow data
   # column names must be: cfs,  datetime, datetime_num
+  if (unit_cfs == T){
   minq <- range(flow_data$cfs)[1]
   maxq <- range(flow_data$cfs)[2]
   rangeq <- maxq - minq
@@ -267,6 +268,53 @@ Summarise_Daily_Q <- function(flow_data){
              'RiseFallCount' = RFC,
              'R_Bflashiness' = DRBFI)
   return(out)
+  }else{
+    minq <- range(flow_data$cms)[1]
+    maxq <- range(flow_data$cms)[2]
+    rangeq <- maxq - minq
+    meanq <- mean(flow_data$cms)
+    medianq <- median(flow_data$cms)
+    sdq <- sd(flow_data$cms)
+    # daily standardized delta = DSD
+    DSD <- rangeq/meanq
+    # daily coefficient of variation = DCOV
+    DCOV <- sdq / meanq
+    # Daily rise and fall counts = RFC
+    fd <- flow_data %>%
+      mutate(hour = hour(datetime))%>%
+      group_by(hour)%>%
+      summarise(mean_hrly = mean(cfs))
+    delta_Q = rep(NA, nrow(fd))
+    for (i in 1:nrow(fd)){
+      if (i == 1){
+        delta_Q[i] = 0
+      }else{
+        delta_Q_hr = fd$mean_hrly[i] - fd$mean_hrly[i-1]
+        if (delta_Q_hr > 1){
+          delta_Q[i] = 1
+        }else if (delta_Q_hr < 1){
+          delta_Q[i] = -1
+        }else{
+          delta_Q[i] = 0
+        }
+      }
+    }
+    RFC <- sum(delta_Q)
+    # daily Richards-Baker flashiness index  = DRBFI
+    DRBFI = sum(abs(diff(flow_data$cfs)))/sum(flow_data$cfs)
+    out <- list('meanCMS' = meanq,
+                'maxCMS' = maxq,
+                'minCMS' =  minq ,
+                'rangeCMS' = rangeq,
+                'medianCMS' = medianq,
+                'sdCMS' = sdq,
+                'DailyStdDelta' = DSD,
+                'DailyCoV' = DCOV,
+                'RiseFallCount' = RFC,
+                'R_Bflashiness' = DRBFI)
+    return(out)
+  }
 }
+
 
 

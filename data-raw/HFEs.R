@@ -26,11 +26,13 @@ flood_dur_hrs <- duration(flood_dur_num, units = 'hours')
 
 #hfes <- data.frame(YEAR_STR,YEAR_NUM,TYPE,START_DT,START,END_DT,END,MAXQ,MAX_UP_RAMP,MAX_DN_RAMP)
 
-lead_days = days(7)
-follow_days = days(7)
+lead_days = days(5)
+follow_days = days(5)
+buff <- days(2)
+start_dt + buff
 
-pre_HFE_interval = interval(start_dt - lead_days,start_dt,tz = 'MST')
-post_HFE_interval = interval(end_dt, end_dt + follow_days, tz = 'MST')
+pre_HFE_interval = interval(start_dt - lead_days,(start_dt + buff) ,tz = 'MST')
+post_HFE_interval = interval((end_dt - buff),(end_dt + follow_days), tz = 'MST')
 pre_HFE_labels = c('preHFE2012', 'preHFE2013', 'preHFE2014', 'preHFE2016', 'preHFE2018')
 post_HFE_labels = c('pstHFE2012', 'pstHFE2013', 'pstHFE2014', 'pstHFE2016', 'pstHFE2018')
 
@@ -52,4 +54,5 @@ HFEs <- data.frame(year_str,
                    post_HFE_interval,
                    post_HFE_labels)
 
+HFEs
 usethis::use_data(HFEs,overwrite = T, interal = T)

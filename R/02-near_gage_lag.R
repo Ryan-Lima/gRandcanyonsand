@@ -218,3 +218,20 @@ cms_to_cfs <- function(cms){
   return(cfs)
 }
 
+
+#' estimate flow volume from vector of 15-minute stage discharges in cfs
+#'
+#' @param vec_cfs a vector of 15-minute discharge readings in cfs
+#'
+#' @return acre_feet the volume of water during that time in acre-feet
+#' @export
+#'
+#' @examples
+cfs15min_to_acrefeet<- function(vec_cfs){
+  # vector of 15-minute discharges
+  # multiplies 15-minute cfs by 900 seconds to get volume over 15-minutes
+  # sum all of those 15-minute volumes
+  # divide by constant 43560 to get acre feet of water
+  acre_feet = sum(vec_cfs*900)/43560
+  return(acre_feet)
+}
